@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse</title>
+  </head>
+  <body>
+    <input type="text" name="" id="word" value="">
+    <button type="button" name="button" onclick="reverse()">Ivesk zodi</button>
+
+    <h2>Result: <span id="result"></span></h2>
+  </body>
+  <script type="text/javascript">
+    function reverse(){
+      inputWord = document.getElementById('word').value;
+      var word = '';
+      for(var i = inputWord.length - 1; i >= 0; i--){
+        word += inputWord[i];
+      }
+
+      document.getElementById('result').innerHTML = word;
+    }
+  </script>
+</html>

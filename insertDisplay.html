@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" name="" id="inputField" value="">
+    <button type="button" name="button" onclick="insert()">Save</button>
+    <hr>
+    <p id="result"></p>
+  </body>
+
+
+  <script type="text/javascript">
+    var array = [];
+
+    function insert(){
+      input = document.getElementById('inputField').value;
+      document.getElementById('inputField').value = '';
+      array.push(input);
+      formatedData = '';
+      for (var i = 0; i < array.length; i++) {
+        formatedData += array[i] + ' <br>';
+      }
+      document.getElementById('result').innerHTML = formatedData;
+    }
+  </script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="text" name="" id="input" value="">
+    <button type="button" name="button" onclick="insert()">Ivesk skaiciu</button>
+    <hr>
+    <div id="result">
+
+    </div>
+  </body>
+  <script type="text/javascript">
+
+    var array = [];
+    function insert(){
+        // value yra mano ivesties kintamasis(skaicius)
+        var value = document.getElementById('input').value;
+        //toliau ji irasau i masyva bei paverciu skaiciumi integer
+        array.push(parseInt(value));
+        //rusiavimas masyvo ilgis ir pradedu skaiciuti 1
+        for (var i = 1; i < array.length; i++) {
+          //spausdinu po 1 skaiciu, kuri turiu sulyginti su visu masyvu
+
+          for (var j = 0; j < i; j++) {
+            //kai i == 1 mano masyvas 2  tikrana
+            //ar masyvo pirmas skaicius yra mazesnis uz
+            if (array[i] < array[j]) {
+              //prisikiriu tusciam kitamajam 1
+              var x = array[i];
+              //priskiriu masyvas1[1] = masyvo2[0]
+              array[i] = array[j];
+              //ir  masyvui2 =  x(masyvo1 reiksme) 
+              array[j] = x;
+            }
+          }
+        }
+        document.getElementById('result').innerHTML = array;
+    }
+  </script>
+</html>

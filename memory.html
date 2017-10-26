@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+  #gameBoard{
+    background:#333;
+    border:#999 1px solid;
+    width:490px;
+    height:320px;
+    padding:24px;
+    margin:0px auto;
+  }
+  #gameBoard > div{
+    background: #fff;
+    border:#000 1px solid;
+    border-radius: 10px;
+    line-height: 100px;
+    height:100px;
+    width:100px;
+    float:left;
+    margin:10px;
+    padding:20px;
+    font-size:100px;
+    cursor:pointer;
+    text-align:center;
+  }
+  </style>
+  </head>
+  <body>
+    <div id="gameBoard">
+    </div>
+  </body>
+
+  <script>
+    var cards_array = ['A', 'A', 'B','B', 'C','C'];
+    var card_values = []; //irasinesiu raides kurias bandys atspeti
+    var memory_cards = []; //irasysiu kortos numerius kurias bandys atspeti
+    var cards_flipped = 0; // atverstos kortos
+
+    initGame();
+
+    function initGame(){
+
+      //tuscia lenta
+      var board = '';
+
+      //ismaiso mano masyva kur surasytos raides
+      shuffle(cards_array);
+
+      //kortas paverciam elementais
+    	for(var i = 0; i < cards_array.length; i++){
+    		board += '<div id="card_'+i+'" onclick="cardFlip(this,\''+ cards_array[i]+'\')"></div>';
+    	}
+      //atspausdinam jas musu dive visas kortas
+    	document.getElementById('gameBoard').innerHTML = board;
+    }
+
+
+
+    function shuffle(a){
+      var j, x, i;
+      for (i = a.length - 1; i > 0; i--) {
+          // kol kas nemokat sios funkcijos taciau ismoksit :)
+          // ismaiso funkcija
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+      }
+      return a;
+    }
+
+function cardFlip(card, value){
+  //card tai kortos numeris, value jos raide
+  //tikrinu ar paspaude tuscia korta ir ar tai ne 3 iseiles korta
+	if(card.innerHTML == "" && card_values.length < 2){
+
+    //atspausdinu jos reiksme kortoje, imituoju atvertima kortos
+    card.innerHTML = value;
+
+    if(card_values.length == 0){
+      //jeigu tuscias masyvas tai atverciu pirma korta
+      // ir irasau jos raide i masyva
+			card_values.push(value);
+      //irasau kortos reiksme, jos numeri
+			memory_cards.push(card.id);
+		} else if(card_values.length == 1){
+      //jeigu jau 1 karto egzistuoja atversta
+      //kortos raide irasau i masyva
+			card_values.push(value);
+      //kortos numeri taip pat irasau i masyva
+      memory_cards.push(card.id);
+      //sutikrinu ar raides sutampa
+  		if(card_values[0] == card_values[1]){
+        //jeigu atspeja pridedu +2, jog dvi atspetos kortos
+				cards_flipped += 2;
+				// Atspejus isvalau abu masyvus, kad galeciau zaisti toliau
+				card_values = [];
+        memory_cards = [];
+				// jeigu atspetos visos kortos as atspausdinu jog laimejai
+				if(cards_flipped == cards_array.length){
+				    alert('Tu Laimejai!');
+				}
+			} else {
+        //jeigu neatspeja abieju kortu, turiu sugristi
+				function flipBack(){
+				    // Abi kortas apvercia atgal
+				    var card_1 = document.getElementById(memory_cards[0]);
+				    var card_2 = document.getElementById(memory_cards[1]);
+            card_1.innerHTML = ""; //viduje esancias raides paverciu tusciu tekstu
+            card_2.innerHTML = "";  //viduje esancias raides paverciu tusciu tekstu
+				    // isvalome abudu masyvus, kad galeciau zaisti toliau
+				    card_values = [];
+            memory_cards = [];
+				}
+        //apvers atgal mano kortas
+				setTimeout(flipBack, 700);
+			}
+		}
+	}
+}
+  </script>
+</html>
